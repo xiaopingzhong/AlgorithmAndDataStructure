@@ -65,4 +65,4 @@ def everyTwoLineMakeFile(filePath):
 
 
 if __name__ == '__main__':
-    filePath="/Users/ivega/Desktop/xx/file/result.txt"
+    filePath = "/Users/ivega/Desktop/xx/file/result.txt"

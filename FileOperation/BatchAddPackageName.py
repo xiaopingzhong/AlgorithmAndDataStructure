@@ -11,7 +11,9 @@
 @license: (C) Copyright 2013-2019.    
 ************************************************
 """
-def batchAddPackageName(file1Path,file2Path):
+
+
+def batchAddPackageName(file1Path, file2Path):
     """
     file1Path的内容是项目所需要的依赖名,可以自动生成,也可以自动添加
     file2Path的内容则是格式化写入之后的结果:目的是为了在docker中使用
@@ -26,12 +28,8 @@ def batchAddPackageName(file1Path,file2Path):
             line_new = 'RUN pip install  --index https://pypi.mirrors.ustc.edu.cn/simple/ ' + line_list
             ff.write(line_new)
 
+
 if __name__ == '__main__':
-    file1Path="./old.txt"
-    file2Path="./ new.txt"
-    batchAddPackageName(file1Path,file2Path)
-
-
-
-
-
+    file1Path = "./old.txt"
+    file2Path = "./ new.txt"
+    batchAddPackageName(file1Path, file2Path)

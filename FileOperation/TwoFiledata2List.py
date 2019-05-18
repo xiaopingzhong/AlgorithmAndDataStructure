@@ -13,6 +13,7 @@
 """
 from pymongo import MongoClient, collection
 
+
 def twoFiledata2List(file1Path, file2Path):
     # 将文本中的数据存到List列表当中
     with open(file1Path, 'r') as f1, open(file1Path, 'r') as f2:
