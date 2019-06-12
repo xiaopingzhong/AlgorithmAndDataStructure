@@ -135,3 +135,6 @@ sum_pattern = lower_pattern.extend([currency_pattenrn, upper_pattern])
 >>> sum(range(101))
 5050
 ```
+## install the tkinter
+please reference the flowing article:
+[centos install the tkinter](https://blog.csdn.net/u014426603/article/details/52334273)
