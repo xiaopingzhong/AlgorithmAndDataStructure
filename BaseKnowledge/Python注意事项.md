@@ -209,6 +209,27 @@ class B(A):
         super(B, self).add(x)
 ```
 [super方法 调用父类的方法](https://www.cnblogs.com/zhaojingyu/p/9038899.html)
+# cannot connect to X server
+  X server是图形用户界面的应用程序
+linux 上图像界面不起作用,因为使用了`cv.imshow("demo", re_im)`
+[cannot connect to X server](https://www.jianshu.com/p/74b902950c4b)
 
+# Flag duplicate
+Delete all flags before declare
+```
+####Delete all flags before declare#####
+
+def del_all_flags(FLAGS):
+    flags_dict = FLAGS._flags()    
+    keys_list = [keys for keys in flags_dict]    
+    for keys in keys_list:
+        FLAGS.__delattr__(keys)
+
+del_all_flags(tf.flags.FLAGS)
+```
+或者
+```
+FLAGS.remove_flag_values(FLAGS.flag_values_dict()) 
+```
 
 
