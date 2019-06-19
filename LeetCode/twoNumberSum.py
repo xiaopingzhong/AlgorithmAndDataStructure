@@ -11,21 +11,30 @@
 @license: (C) Copyright 2013-2019.    
 ************************************************
 """
-class Solution:
-    def twoSum(self, nums, target):
-        nums_1=nums[:-1]
-        nums_2=nums[1:]
-        match_number=0
-        for x in range(len(nums_1)):
-            match_number += 1
-            for y in range(len(nums_2)):
-                if nums_1[x]+nums_2[y]==target:
 
-                    return [x,y+match_number]
-                else:
-                    continue
+
+class Solution:
+
+    def two_sum(self, nums: List[int], target: int) -> List[int]:
+        """
+        Notice: need to add self,Don't forget
+        :param nums:
+        :param target:
+        :return:
+        """
+
+        # *********+++++++++++*********两数之和*********+++++++++++*********========
+        #   构建Hash字典,目标值-当前遍历的值=查找值,不存在的先放到hash字典,存在则返回对应下标.
+        # *********+++++++++++*********========*********+++++++++++*********========
+
+        result_dict = {}
+        for i, k in enumerate(nums):
+            if result_dict.get(target - k) is not None:
+                return i, result_dict.get(target - k)
+            else:
+                result_dict[k] = i
+
 
 if __name__ == '__main__':
-    soul=Solution()
-    result=soul.twoSum([2,5,5,11],10)
+    result = soul.two_sum(nums=[2, 5, 6, 3], target=8)
     print(result)
