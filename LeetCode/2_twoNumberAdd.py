@@ -56,9 +56,9 @@ class Solution:
     def addTwoNumbers(self, L1: ListNode, L2: ListNode) -> ListNode:
         if L1 and L2:
             # two number add
-            L1_int = listNode2Int(L1)
-            L2_int = listNode2Int(L2)
-            result_int = L1_int + L2_int
+            l1_int = listNode2Int(L1)
+            l2_int = listNode2Int(L2)
+            result_int = l1_int + l2_int
 
             # reverse Memory
             # use the variable L4 to keep the ListNode head pointer
