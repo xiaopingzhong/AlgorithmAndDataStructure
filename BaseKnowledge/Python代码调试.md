@@ -59,5 +59,20 @@ def ValueCompare(element_char, operation, element_value_l, input_value_l,*time_t
 　　`IndexError: no such group`:说明有匹配到,只是下标错误
 ## ValueError: too many values to unpack (expected 2)
 　　说明返回值有多个,不匹配
+## p.checkVector(2, CV_32S) >= 0 in function 'polylines'
+  说明在画框的时候,copylines只能精确到整数(因为图像就是由像素组成),因此
+  ` cv2.polylines(img, [box[:8].astype(np.float64).reshape((-1, 1, 2))], True, color=(0, 255, 0),thickness=2)`
+  则是错误的 
+## TypeError: 'float' object cannot be interpreted as an integer
+  说明 需要整数,在python3中`/`的结果是浮点数,我们要求得整数,则需要将其转换成整数,我们可以使用`//` 或者使用`int()`.
+  因此错误就出现在:`point = np.reshape(point, newshape=(len(point) / 4, 8))`,改成:
+  `int(len(point) / 4`或`int(len(point) // 4`即可
+  
+## 二维list 无法转为二维的numpy.array?
+  [二维列表转数组的特殊情况](https://blog.csdn.net/qq_31785005/article/details/78460757)
+
+## 
+
+
 　　
 
