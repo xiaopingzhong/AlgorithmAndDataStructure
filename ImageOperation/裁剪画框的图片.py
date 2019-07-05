@@ -7,7 +7,7 @@
 @Project : AlgorithmAndDataStructure
 @File    : cutImage.py
 @Description: ==================================
-
+    根据BBOX裁剪图片
 @license: (C) Copyright 2013-2019.
 ************************************************
 """
@@ -124,7 +124,7 @@ if __name__ == '__main__':
     # 剪切结果输出目录
     OUT_PATH = "./result"
     # 原始图片目录
-    image_dir="./data/image"
+    image_dir = "./data/image"
     # 预测图片的对应的文本框
-    point_dir="./data/label"
+    point_dir = "./data/label"
     sum_cropImage(image_dir, point_dir)
