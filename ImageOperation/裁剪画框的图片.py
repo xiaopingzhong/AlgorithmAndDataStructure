@@ -5,10 +5,10 @@
 @Time    : 2019-07-01 21:23
 @Author  : zxp
 @Project : AlgorithmAndDataStructure
-@File    : 裁剪画框的图片.py
+@File    : cutImage.py
 @Description: ==================================
-    
-@license: (C) Copyright 2013-2019.    
+
+@license: (C) Copyright 2013-2019.
 ************************************************
 """
 import os
@@ -23,7 +23,7 @@ def readBox2NdArray(bbox_path):
     :return:
     """
     sum_point_l = []
-    with open(bbox_path, mode='r', encoding='utf-8-sig') as f:
+    with open(bbox_path, mode='r') as f:
         lines = f.readlines()
         for x in lines:
             numerical_l = x.split(",")[:8]
@@ -44,19 +44,57 @@ def readBox2NdArray(bbox_path):
     return sum_point_arr
 
 
-def cropImage(one_image_path,one_point_path):
-    im_fn=os.path.basename(one_image_path)
-    # ndarray
-    img=cv2.imread(one_image_path)
-    # (?,8)--ndarray
-    boxes=readBox2NdArray(one_point_path)
-    for i, box in enumerate(boxes):
-        cv2.polylines(img, [box[:8].astype(np.int32).reshape((-1, 1, 2))], True, color=(0, 255, 0),
-                      thickness=2)
-        img1 = img.copy()
+def findMinAndMaxAxis(axis_l):
+    """
+    search min point, max point
+    :param axis_l:
+    :return:
+    """
+    axil_pair_l = []
+    for x, y in zip(axis_l[::2], axis_l[1::2]):
+        axil_pair_l.append([x, y])
 
-        #***********************core code******************************************
-        crop_img = img1[box[1]:box[5], box[0]:box[4]]
+    # search the max Coordinate point
+    min = axil_pair_l[0]
+    for per in axil_pair_l[1:]:
+        if min[0] >= per[0] and min[1] >= per[1]:
+            min = per
+        else:
+            continue
+
+    # search the max Coordinate point
+    max = axil_pair_l[0]
+    for seg in axil_pair_l[1:]:
+        if seg[0] >= max[0] and seg[1] >= max[1]:
+            max = seg
+        else:
+            continue
+
+    return min, max
+
+
+def cropImage(one_image_path, one_point_path):
+    """
+    剪切单张图片
+    :param one_image_path:
+    :param one_point_path:
+    :return:
+    """
+    im_fn = os.path.basename(one_image_path)
+    # ndarray
+    img = cv2.imread(one_image_path)
+    # (?,8)--ndarray
+    boxes = readBox2NdArray(one_point_path)
+    for i, box in enumerate(boxes):
+        # cv2.polylines(img, [box[:8].astype(np.int32).reshape((-1, 1, 2))], True, color=(0, 255, 0),
+        #               thickness=2)
+        box_l = list(box)
+        min_point, max_point = findMinAndMaxAxis(box_l)
+        # ***********************core code******************************************
+        img1 = img.copy()
+        crop_img = img1[int(min_point[1]):int(max_point[1]), int(min_point[0]):int(max_point[0])]
+        # print(box[5])
+        # exit(1)
         # ***********************core code******************************************
         basename = os.path.basename(im_fn)
         basename = os.path.splitext(basename)[0] + "-{}".format(i) + os.path.splitext(basename)[1]
@@ -66,8 +104,27 @@ def cropImage(one_image_path,one_point_path):
         cv2.imwrite(os.path.join(OUT_PATH, basename), crop_img)
         # ***********************core code******************************************
 
+
+def sum_cropImage(image_dir, point_dir):
+    # 裁剪目录下所有图片
+    img_l = os.listdir(image_dir)
+    point_l = os.listdir(point_dir)
+    for x in img_l:
+        img_filename = os.path.splitext(x)[0]
+        for y in point_l:
+            point_filename = os.path.splitext(y)[0]
+            # 图片文件名和标签文件名前缀一样
+            if img_filename == point_filename:
+                cropImage(image_dir + "/" + x, point_dir + "/" + y)
+            else:
+                continue
+
+
 if __name__ == '__main__':
-    OUT_PATH="./data/"
-    one_image_path="./test/1.jpg"
-    one_point_path="./test/2.txt"
-    cropImage(one_image_path,one_point_path)
+    # 剪切结果输出目录
+    OUT_PATH = "./result"
+    # 原始图片目录
+    image_dir="./data/image"
+    # 预测图片的对应的文本框
+    point_dir="./data/label"
+    sum_cropImage(image_dir, point_dir)
