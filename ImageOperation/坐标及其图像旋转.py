@@ -182,4 +182,3 @@ if __name__ == '__main__':
     save_image_dir = FILE_SAVE_ROOT_DIR + "image/"
 
     rotation_summarize(img_dir=img_dir, point_dir=point_dir, angle=180, keep_size=True)
-

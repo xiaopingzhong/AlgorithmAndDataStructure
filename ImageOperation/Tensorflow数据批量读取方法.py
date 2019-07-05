@@ -22,6 +22,7 @@ from Appendix.残差网络 import inference
 # *********+++++++++++*********========*********+++++++++++*********========
 # https://blog-1-1256491104.cos.ap-chengdu.myqcloud.com/20180531141829359.gif
 # https://www.cnblogs.com/demian/p/8005407.html
+# http://zangbo.me/2017/07/05/TensorFlow_9/
 # *********+++++++++++*********========*********+++++++++++*********========
 
 
