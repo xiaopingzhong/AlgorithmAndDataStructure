@@ -71,7 +71,10 @@ def ValueCompare(element_char, operation, element_value_l, input_value_l,*time_t
 ## 二维list 无法转为二维的numpy.array?
   [二维列表转数组的特殊情况](https://blog.csdn.net/qq_31785005/article/details/78460757)
 
-## 
+## cv2.imwrite写入的图片为0kb
+   有可能是坐标没有按照对角线的坐标进行排序的后果.首先用正常数值的正确顺序进行排查
+
+
 
 
 　　
