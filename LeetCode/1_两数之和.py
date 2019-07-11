@@ -5,7 +5,7 @@
 @Time    : 2019-06-18 12:41
 @Author  : zxp
 @Project : AlgorithmAndDataStructure
-@File    : 1_twoNumberSum.py
+@File    : 1_两数之和.py
 @Description: ==================================
     two number sum
 @license: (C) Copyright 2013-2019.    
