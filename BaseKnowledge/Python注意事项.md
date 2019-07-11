@@ -232,4 +232,11 @@ del_all_flags(tf.flags.FLAGS)
 FLAGS.remove_flag_values(FLAGS.flag_values_dict()) 
 ```
 
+# 可迭代对象与迭代器
+```
+dict.items() ：用元组来存放key和vlaue
+dict.keys() ： 只包含key
+dict.values() ： 只包含value
+```
+上面3个方法返回的都是一个可迭代对象，可以用for遍历，但不是迭代器，不能用next方法
 
