@@ -3027,7 +3027,26 @@ class A:
     return self.x + self.y
 ```
 
-
-
+## python 魔术方法
+[python魔术方法](https://woodpecker.org.cn/diveintopython3/special-method-names.html)
+```
+repr(x)-->	x.__repr__()
+str(x)--> x.__str__()
+format(x, format_spec)	x.__format__(format_spec)
+format(x, format_spec)	x.__format__(format_spec)
+next(seq)	seq.__next__()
+reversed(seq)	seq.__reversed__()  按逆序创建一个迭代器	
+dir(x)	x.__dir__()  列出所有属性和方法
+①	获取一个计算属性（无条件的）	x.my_property	x.__getattribute__('my_property')
+②	获取一个计算属性（后备）	x.my_property	x.__getattr__('my_property')
+③	设置某属性	x.my_property = value	x.__setattr__('my_property', value)
+序列的长度	len(seq)	seq.__len__()
+了解某序列是否包含特定的值	x in seq	seq.__contains__(x)
+加法	x + y	x.__add__(y)
+减法	x - y	x.__sub__(y)
+乘法	x * y	x.__mul__(y)
+除法	x / y	x.__truediv__(y)
+取模（取余）	x % y	x.__mod__(y)
+```
 
 
