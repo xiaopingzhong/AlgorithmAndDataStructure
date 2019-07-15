@@ -61,7 +61,7 @@ class singleLinkedList():
             属性的类型在初始化是否需要确定,看其在初始化是不是一定是要确定的;
             类型的容器的选择主要是根据具体问题来分析之后选用不同的数据结构,有时,不单单是线性或者链式结构,
             两者的结合.
-        :param maxsize: 单链表的容量
+        :param maxsize: 单链表的容量,None表示无线容量
         """
         self.maxsize = maxsize
         self.root = Node()
@@ -274,6 +274,7 @@ def test_singleLinkedList():
 
     ll.reversed()
 
+    # list会调用iter方法,也就是生成器方法
     assert list(ll) == [1, 0]
 
     ll.clear()
