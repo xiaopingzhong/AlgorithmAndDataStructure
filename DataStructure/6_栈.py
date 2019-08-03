@@ -169,12 +169,10 @@ class CycleDoubleLinkedList():
         # 如果只有一个节点(头节点),那么就直接返回,否则进行遍历
         yield current_node
 
-
         # *********+++++++++++*********========*********+++++++++++*********========
         #   开始部分:基于循环双向列表,构建双端队列,之后基于双端队列构建堆栈
         # *********+++++++++++*********========*********+++++++++++*********========
-        
-        
+
 
 class DoubleQueue(CycleDoubleLinkedList):
     def pop(self):
@@ -224,6 +222,7 @@ def test_Stack():
     with pytest.raises(EmptyException) as exce_info:
         stack.pop()
     assert "the double queue is empty" == exce_info.value.emptyExceptiontoString
+
 
 if __name__ == '__main__':
     test_Stack()
