@@ -175,7 +175,7 @@ class cycleDoubleLinkedList():
         yield current_node
 
 
-def test_cycleDoubleLinkedList():
+def testCycleDoubleLinkedList():
     # 实例化循环双向链表
     maxsize = 10
     cycle_double_link_list = cycleDoubleLinkedList(maxsize=maxsize)
