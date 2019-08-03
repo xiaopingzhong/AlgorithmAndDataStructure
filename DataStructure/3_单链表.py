@@ -35,7 +35,7 @@ class Node():
         print("Node: value:{},next:{}".format(self.value, self.next))
 
 
-class singleLinkedList():
+class SingleLinkedList():
     """
     主要操作: 增 删 查,遍历,长度
     """
@@ -251,7 +251,7 @@ def test_singleLinkedList():
     测试
     :return:
     """
-    ll = singleLinkedList()
+    ll = SingleLinkedList()
 
     ll.append(0)
     ll.append(1)
