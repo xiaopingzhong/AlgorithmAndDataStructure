@@ -2,193 +2,228 @@
 # -*- coding: utf-8 -*-
 """
 ************************************************
-@Time    : 2019-07-20 09:55
+@Time    : 2019-08-03 19:52
 @Author  : zxp
 @Project : AlgorithmAndDataStructure
 @File    : 6_栈.py
 @Description: ==================================
-    
-@license: (C) Copyright 2013-2019.    
+
+@license: (C) Copyright 2013-2019.
 ************************************************
 """
-
-from collections import deque
 import pytest
 
-
-class Node(object):
-    def __init__(self, value=None, prev=None, next=None):
-        self.value, self.prev, self.next = value, prev, next
+from DataStructure.DefineException import EmptyException
 
 
-class CircularDoubleLinkedList(object):
-    def __init__(self, maxsize=None):
+class Node():
+    def __init__(self, value=None, previous=None, next=None):
+        self.value = value
+        self.previous = previous
+        self.next = next
+
+
+class CycleDoubleLinkedList():
+    """
+    属性: root,maxsize,length
+    操作: head_node,tail_node,append,len,appendleft,remove,popleft,iter_node,iter_node_reverse
+    """
+
+    def __init__(self, maxsize=10, length=0):
+        # 在__init__可以定义在同一行定义多个变量
         self.maxsize = maxsize
         node = Node()
-        node.next, node.prev = node, node
+        # 因为node.previous,node.next都是节点,因此可以的话,
+        # 也可以先指定类型,虽然后面可以添加上去
+        node.previous, node.next = node, node
         self.root = node
-        self.length = 0
+        self.lenght = length
 
-    def __len__(self):
-        return self.length
-
-    def headnode(self):
+    def head_node(self):
+        """
+        获取头结点--只是单纯获取头结点,但是并没有进行判断---为了后面删除节点做准备
+        :return:
+        """
         return self.root.next
 
-    def tailnode(self):
-        return self.root.prev
+    def tail_node(self):
+        """
+        获取尾节点
+        :return:
+        """
+        return self.root.previous
 
     def append(self, value):
-        if self.maxsize is not None and len(self) >= self.maxsize:
-            raise Exception('LinkedList is Full')
-        node = Node(value=value)
-        tailnode = self.tailnode() or self.root
+        """
+        添加节点:判断能不能添加,添加的方式有多种
+        :param value:
+        :return:
+        """
+        # 应该是容量小于等于长度的时候,就说明链表已经满了
+        if self.maxsize is not None and self.maxsize <= self.lenght:
+            raise Exception("has Fulled")
+        value_node = Node(value)
 
-        tailnode.next = node
-        node.prev = tailnode
-        node.next = self.root
-        self.root.prev = node
-        self.length += 1
+        # 把两种情况考虑进去了
+        tail_node = self.tail_node() or self.root
 
-    def appendleft(self, value):
-        if self.maxsize is not None and len(self) >= self.maxsize:
-            raise Exception('LinkedList is Full')
-        node = Node(value=value)
-        if self.root.next is self.root:  # empty
-            node.next = self.root
-            node.prev = self.root
-            self.root.next = node
-            self.root.prev = node
+        # 先建立新节点的连接
+        value_node.previous = tail_node
+        value_node.next = self.root
+
+        # 后改变对应原有节点的连接
+        tail_node.next = value_node
+        self.root.previous = value_node
+
+        # 长度进行相应改变
+        self.lenght += 1
+
+    def appendLeft(self, value):
+        """
+        :param value:
+        :return:
+        """
+        # 容量和长度的大小比较符号注意
+        if self.maxsize is not None and self.maxsize <= self.lenght:
+            raise Exception("has Fulled")
+        value_node = Node(value)
+
+        head_node = self.head_node()
+
+        if self.lenght != 0:
+            # 先设置 新节点的连接
+            value_node.next = head_node
+            value_node.previous = self.root
+
+            # 在设置之后节点的连接.
+            self.root.next = value_node
+            head_node.previous = value_node
         else:
-            node.prev = self.root
-            headnode = self.root.next
-            node.next = headnode
-            headnode.prev = node
-            self.root.next = node
-        self.length += 1
+            value_node.next = self.root.previous
+            value_node.previous = self.root.next
 
-    def remove(self, node):
-        if node is self.root:
+            self.root.next = value_node
+            self.root.previous = value_node
+
+        self.lenght += 1
+
+    def remove(self, value_node: Node):
+        if self.lenght == 0:
+            # raise Exception("is empty")
             return
-        else:
-            node.prev.next = node.next
-            node.next.prev = node.prev
-        self.length -= 1
-        return node
+        # 后一个节点连接前一个节点(value_node.next.previous-->value_node.previous)
+        value_node.next.previous = value_node.previous
+        # 前一个节点连接后一个节点---注意箭头指向(前指向后,value_node.previous.next-->value_node.next)
+        value_node.previous.next = value_node.next
+        # 记住还要记得返回删除节点
+        self.lenght -= 1
+        return value_node
 
     def iter_node(self):
-        if self.root.next is self.root:
+        """
+        迭代生成返回单个节点
+        :return:
+        """
+        # 从头结点开始
+        current_node = self.root.next
+        if self.lenght == 0:
             return
-        curnode = self.root.next
-        while curnode.next is not self.root:
-            yield curnode
-            curnode = curnode.next
-        yield curnode
+
+        # while current_node.next is not None:--否则会陷入无线循环,
+        # root在添加节点之后,其不为None,因为previous和next都确定了
+        # 因为是循环双向链表
+        # 这是一个比较普遍的写法,记住
+        while current_node.next is not self.root:
+            yield current_node
+            current_node = current_node.next
+
+        # 如果只有一个头结点,那么直接返回头结点
+        yield current_node
 
     def __iter__(self):
+        """
+        迭代生成返回单个节点
+        :return:
+        """
         for node in self.iter_node():
             yield node.value
 
+    def __len__(self):
+        return self.lenght
+
     def iter_node_reverse(self):
-        if self.root.prev is self.root:
+        """
+        反序遍历
+        :return:
+        """
+        if self.lenght == 0:
             return
-        curnode = self.root.prev
-        while curnode.prev is not self.root:
-            yield curnode
-            curnode = curnode.prev
-        yield curnode
+        # 从尾节点开始--一般是self.root.previous所指向的节点--这个和正向遍历很相像
+        current_node = self.root.previous
+
+        # 从尾到根节点
+        while current_node.previous is not self.root:
+            # 每次生成单个node
+            yield current_node
+            current_node = current_node.previous
+        # 如果只有一个节点(头节点),那么就直接返回,否则进行遍历
+        yield current_node
 
 
         # *********+++++++++++*********========*********+++++++++++*********========
-        #   本章栈的实现
+        #   开始部分:基于循环双向列表,构建双端队列,之后基于双端队列构建堆栈
         # *********+++++++++++*********========*********+++++++++++*********========
+        
+        
 
-
-class Deque(CircularDoubleLinkedList):
-    """栈的出队"""
+class DoubleQueue(CycleDoubleLinkedList):
     def pop(self):
-        """尾节点删除"""
         if len(self) == 0:
-            raise Exception('empty')
-        tailnode = self.tailnode()
-        value = tailnode.value
-        self.remove(tailnode)
-        return value
+            raise EmptyException("the double queue is empty")
+        tail_node = self.tail_node()
+        tail_value = tail_node.value
+        self.remove(tail_node)
+        return tail_value
 
     def popleft(self):
-        """头结点出队"""
+        """返回左边删除的值"""
         if len(self) == 0:
-            raise Exception('empty')
-        headnode = self.headnode()
-        value = headnode.value
-        self.remove(headnode)
-        return value
+            raise EmptyException("the double queue is empty")
+        head_node = self.head_node()
+        remove_node = self.remove(head_node)
+        return remove_node.value
 
 
-def test_deque():
-    dq = Deque()
-    dq.append(1)
-
-    dq.append(2)
-    assert list(dq) == [1, 2]
-
-    dq.appendleft(0)
-    assert list(dq) == [0, 1, 2]
-
-    dq.pop()
-    assert list(dq) == [0, 1]
-
-    dq.popleft()
-    assert list(dq) == [1]
-
-    dq.pop()
-    assert len(dq) == 0
-
-
-class Stack(object):
-    """
-    栈的属性和方法设置--因为栈其实是单头队列
-    """
+class Stack():
     def __init__(self):
-        """使用自定义的出队方法"""
-        self.deque = Deque()
+        self._double_queue = DoubleQueue()
 
     def push(self, value):
-        self.deque.append(value)
+        self._double_queue.append(value)
 
     def pop(self):
-        return self.deque.pop()
+        return self._double_queue.pop()
+
+    def __len__(self):
+        return len(self._double_queue)
 
 
-class Stack2(object):
-    """使用内置的出队方法"""
-    def __init__(self):
-        self._deque = deque()
+def test_Stack():
+    stack = Stack()
+    size = 5
+    for x in range(size):
+        stack.push(x)
+    assert len(stack) == 5, "长度相等"
 
-    def push(self, value):
-        return self._deque.append(value)
+    assert stack.pop() == 4
+    assert stack.pop() == 3
+    assert stack.pop() == 2
+    assert stack.pop() == 1
+    assert stack.pop() == 0
 
-    def pop(self):
-        return self._deque.pop()
-
-    def empty(self):
-        return len(self._deque) == 0
-
-
-def testStack():
-    s = Stack()
-    s.push(0)
-    s.push(1)
-    s.push(2)
-
-    assert s.pop() == 2
-    assert s.pop() == 1
-    assert s.pop() == 0
-
-    with pytest.raises(Exception) as excinfo:
-        s.pop()
-    assert 'empty' in str(excinfo.value)
-
+    with pytest.raises(EmptyException) as exce_info:
+        stack.pop()
+    assert "the double queue is empty" == exce_info.value.emptyExceptiontoString
 
 if __name__ == '__main__':
-    testStack()
+    test_Stack()
