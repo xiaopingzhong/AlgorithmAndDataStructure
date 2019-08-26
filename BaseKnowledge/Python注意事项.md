@@ -48,10 +48,10 @@ last_result_l=sorted(last_result_l, key=lambda s:s[0],reverse=True)
 ## sum(x,y)
 sum(x,y)需要x是序列,y是相加之后,再加上几-->不是单个元素;
 `c = sum([2], 1)`
-## remove,pop,del
-|          | remove                                              | pop                                                 | del                |
+## removeNode,pop,del
+|          | removeNode                                              | pop                                                 | del                |
 | -------- | --------------------------------------------------- | --------------------------------------------------- | ------------------ |
-| 形式     | list.remove(值)                                     | list.pop(索引)/list.pop()                           | del(索引)          |
+| 形式     | list.removeNode(值)                                     | list.pop(索引)/list.pop()                           | del(索引)          |
 | 功能     | 删除的是首个符合要求的值(如果有多个,则需要进行循环) | 根据索引删除列表中的元素,入无指定则删除列表末尾元素 | 删除指定索引的元素 |
 | 返回结果 | 删除后的列表                                        | 被删除的值(适用于使用之后进行删除)                  | 删除后的列表       |
 
@@ -240,3 +240,40 @@ dict.values() ： 只包含value
 ```
 上面3个方法返回的都是一个可迭代对象，可以用for遍历，但不是迭代器，不能用next方法
 
+# __contains__()使用场景
+__contains__():当使用in，not in 对象的时候 调用(not in 是在in完成后再取反,实际上还是in操作)
+# 错误与异常
+错误是由语法不正确产生的；--类似SyntaxError: invalid syntax,
+异常是没有语法错误的情况下，执行期间产生的.
+## 错误
+(1)语法错误:在编译之前就会就会报错,编译器不通过.
+```
+>>> if n < 5
+  File "<stdin>", line 1
+    if n < 5
+           ^
+SyntaxError: invalid syntax
+```
+(2)逻辑错误:编译器不报错,程序也不会报异常,但是运行结果与预期不符合.
+```
+常见的逻辑错误有：
+运算符优先级考虑不周
+变量名使用不正确
+语句块缩进层次不对
+在布尔表达式中出错
+```
+(3)运行时错误:可以运行,但是在运行的过程当中,程序会崩溃报异常--
+常见的运行错误:
+```
+使用未定义的标识符（NameError）
+除数为 0（ZeroDivisionError）
+打开的文件不存在（FileNotFoundError）
+导入的模块没被找到（ImportError）
+```
+常见例子:
+```
+>>> 5 / 0
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ZeroDivisionError: division by zero
+```
