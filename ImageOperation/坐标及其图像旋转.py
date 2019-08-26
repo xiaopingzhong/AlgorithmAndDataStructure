@@ -33,7 +33,7 @@ def readBox2NdArray(bbox_path):
         lines = f.readlines()
         for x in lines:
             numerical_l = x.split(",")[:8]
-            # remove the "\n" and transfer into float
+            # removeNode the "\n" and transfer into float
             for i, x in enumerate(numerical_l):
                 if '\n' in x:
                     new_x = x.replace("\n", "")
