@@ -25,7 +25,7 @@ class Node():
 class CycleDoubleLinkedList():
     """
     属性: root,maxsize,length
-    操作: head_node,tail_node,append,len,appendleft,remove,popleft,iter_node,iter_node_reverse
+    操作: head_node,tail_node,append,len,appendleft,removeNode,popleft,iter_node,iter_node_reverse
     """
 
     def __init__(self, maxsize=10, length=0):

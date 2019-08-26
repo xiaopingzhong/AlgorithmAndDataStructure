@@ -264,7 +264,7 @@ def test_singleLinkedList():
     ll.appendleft(4)
     assert len(ll) == 4, "Length method incrroectly"
     assert ll.find(4) == 0
-    assert ll.remove(2) == 1, "remove failed"
+    assert ll.remove(2) == 1, "removeNode failed"
 
     assert len(ll) == 3, "Length method incrroectly"
     assert ll.find(2) == -1, "Length method incrroectly"

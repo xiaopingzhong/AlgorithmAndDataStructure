@@ -34,11 +34,13 @@ class Array(object):
             yield item
 
     def __len__(self):
+        # return len(self._items)
         return len(self._items)
 
     def clear(self, value=None):
         for i in range(len(self._items)):
             self._items[i]=value
+
 
 def test_array():
     size = 10
