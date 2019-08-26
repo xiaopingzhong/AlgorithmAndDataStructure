@@ -5,7 +5,7 @@
 @Time    : 2019-07-22 02:03
 @Author  : zxp
 @Project : AlgorithmAndDataStructure
-@File    : 内置的双端队列.py
+@File    : 5_内置的双端队列.py
 @Description: ==================================
     
 @license: (C) Copyright 2013-2019.    

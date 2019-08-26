@@ -5,7 +5,7 @@
 @Time    : 2019-07-15 19:52
 @Author  : zxp
 @Project : AlgorithmAndDataStructure
-@File    : pycallgraph函数调用.py
+@File    : 3_pycallgraph函数调用.py
 @Description: ==================================
     主要是对函数运行图的构建
 @license: (C) Copyright 2013-2019.    
@@ -14,7 +14,7 @@
 
 # *********+++++++++++*********========*********+++++++++++*********========
 #   命令行:
-#       pycallgraph graphviz --output-file=setup.png --include=['Node.*', "mainProcess"] pycallgraph函数调用.py
+#       pycallgraph graphviz --output-file=setup.png --include=['Node.*', "mainProcess"] 3_pycallgraph函数调用.py
 #       pycallgraph graphviz -- ./test.py  生成pycallgraph图片
 # *********+++++++++++*********========*********+++++++++++*********========
 

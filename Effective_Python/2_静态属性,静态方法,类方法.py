@@ -5,7 +5,7 @@
 @Time    : 2019-07-14 23:39
 @Author  : zxp
 @Project : AlgorithmAndDataStructure
-@File    : 静态属性,静态方法,类方法.py
+@File    : 2_静态属性,静态方法,类方法.py
 @Description: ==================================
     静态属性,静态方法,类方法的比较和解释
 @license: (C) Copyright 2013-2019.    

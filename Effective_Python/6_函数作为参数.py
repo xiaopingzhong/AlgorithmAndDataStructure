@@ -5,7 +5,7 @@
 @Time    : 2019-07-15 21:44
 @Author  : zxp
 @Project : AlgorithmAndDataStructure
-@File    : 函数作为参数.py
+@File    : 6_函数作为参数.py
 @Description: ==================================
     
 @license: (C) Copyright 2013-2019.    

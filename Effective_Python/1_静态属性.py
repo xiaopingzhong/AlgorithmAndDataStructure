@@ -5,7 +5,7 @@
 @Time    : 2019-07-14 22:57
 @Author  : zxp
 @Project : AlgorithmAndDataStructure
-@File    : 静态属性.py
+@File    : 1_静态属性.py
 @Description: ==================================
     主要是对静态属性的本质及其应用场景进行说明
 @license: (C) Copyright 2013-2019.    
